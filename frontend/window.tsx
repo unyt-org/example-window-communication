@@ -1,7 +1,7 @@
 import { Component } from "uix/components/Component.ts";
 import { WindowInterface } from "unyt_core/network/communication-interfaces/window-interface.ts";
-import { WindowInterface as MyInterface } from '../common/interfaces/WindowInterface.ts';
-import { type AppInterface as OtherInterface } from '../common/interfaces/AppInterface.ts';
+import { WindowInterface as MyInterface } from '../common/interfaces/WindowInterface.tsx';
+import { type AppInterface as OtherInterface } from '../common/interfaces/AppInterface.tsx';
 import { Datex } from "unyt_core/datex.ts";
 MyInterface;
 
@@ -24,6 +24,7 @@ MyInterface;
 })
 export class Window extends Component {
 	otherEndpoint = $$("Loading...");
+	private appInterface?: typeof OtherInterface;
 
 	protected onDisplay(): void | Promise<void> {
 		console.log(globalThis.opener, new URL(document.referrer).origin)
@@ -34,10 +35,9 @@ export class Window extends Component {
 	async onConnect(event: EndpointConnectEvent) {
 		const endpoint = event.endpoint as Datex.Endpoint;
 		this.otherEndpoint.val = endpoint.toString();
-		const other: typeof OtherInterface = await datex`${endpoint}.AppInterface`;
-		console.log(other.helloFromWindow())
+		this.appInterface = await datex`${endpoint}.AppInterface`;
 	}
 	pong() {
-
+		this.appInterface?.helloFromWindow();
 	}
 }

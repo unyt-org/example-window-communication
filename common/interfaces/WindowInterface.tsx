@@ -3,6 +3,6 @@
 export class WindowInterface {
 	static async helloFromWindow() {};
 	@property static async helloFromApp() {
-		console.log("Hello from app")
+		document.body.append(<div>Hello from App!</div>);
 	};
 }
