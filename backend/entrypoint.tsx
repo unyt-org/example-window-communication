@@ -5,7 +5,7 @@
  */
 export default {
 	'/': null,
-	'/iframe': <p>
+	'/window': <p>
 		Hello world from backend-1
 	</p>
 }
