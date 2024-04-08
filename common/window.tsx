@@ -29,6 +29,10 @@ export class Window extends Component {
 	private appInterface?: typeof OtherInterface;
 
 	protected onDisplay(): void | Promise<void> {
+		// Creating a parent inteface to communicate with the parent (our app)
+		// by passing the opener window (app window) and opener url.
+		// We should not use document.referrer in production but rather use
+		// the actual URL of the parent window due to security considerations.
 		const parentInterface = WindowInterface.createParentInterface(
 			globalThis.opener,
 			new URL(document.referrer).origin
@@ -39,9 +43,12 @@ export class Window extends Component {
 	async onConnect(event: EndpointConnectEvent) {
 		const endpoint = event.endpoint as Datex.Endpoint;
 		this.otherEndpoint.val = endpoint.toString();
+
+		// Requesting interface from app endpoint
 		this.appInterface = await datex`${endpoint}.AppInterface`;
 	}
 	pong() {
+		// Call the "helloFromWindow" method on the app
 		this.appInterface?.helloFromWindow();
 	}
 }

@@ -35,21 +35,23 @@ export class Page extends Component {
 		const top = (screen.height/2)-(height/2);
 
 		const domain = new URL("/window", globalThis.location.origin);
-
 		// Initializing and opening a popup window
 		// with the same arguments as the window.open method.
 		// Note: The execution is asynchronously and returns
 		// the endpoint of the window and the actual window object.
 		const { endpoint } = await WindowInterface.createWindow(
 			domain,
-			"Window",
+			"MyWindow",
 			`scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=${width},height=${height},left=${left},top=${top}`
 		);
 		this.otherEndpoint.val = endpoint!.toString();
+
+		// Requesting interface from window endpoint
 		this.windowInterface = await datex`${endpoint}.WindowInterface`;
 	}
 
 	public ping() {
+		// Call the "helloFromApp" method on the window
 		this.windowInterface?.helloFromApp();
 	}
 }
