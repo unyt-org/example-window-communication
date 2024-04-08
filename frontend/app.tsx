@@ -1,8 +1,9 @@
 import { Component } from "uix/components/Component.ts";
 import { WindowInterface } from "unyt_core/network/communication-interfaces/window-interface.ts";
-import { AppToWindow } from '../common/interfaces/AppToWindow.ts';
+import { type WindowInterface as OtherInterface } from '../common/interfaces/WindowInterface.ts';
+import { AppInterface as MyInterface} from '../common/interfaces/AppInterface.ts';
 import { Datex } from "unyt_core/datex.ts";
-AppToWindow;
+MyInterface;
 
 @template(function() {
 	return <main>

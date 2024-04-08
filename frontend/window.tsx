@@ -1,8 +1,9 @@
 import { Component } from "uix/components/Component.ts";
 import { WindowInterface } from "unyt_core/network/communication-interfaces/window-interface.ts";
-import { WindowToApp } from '../common/interfaces/WindowToApp.ts';
+import { WindowInterface as MyInterface } from '../common/interfaces/WindowInterface.ts';
+import { type AppInterface as OtherInterface } from '../common/interfaces/AppInterface.ts';
 import { Datex } from "unyt_core/datex.ts";
-WindowToApp;
+MyInterface;
 
 @template(function() {
 	return <main>
@@ -13,8 +14,11 @@ WindowToApp;
 		<div>
 			<b>Other:</b> {this.otherEndpoint}
 		</div>
-		<button onclick:frontend={() => this.closeWindow()}>
+		<button onclick:frontend={globalThis.close}>
 			Close window
+		</button>
+		<button onclick:frontend={() => this.pong()}>
+			Pong
 		</button>
 	</main>
 })
@@ -22,15 +26,18 @@ export class Window extends Component {
 	otherEndpoint = $$("Loading...");
 
 	protected onDisplay(): void | Promise<void> {
+		console.log(globalThis.opener, new URL(document.referrer).origin)
 		const parentInterface = WindowInterface.createParentInterface(globalThis.opener, new URL(document.referrer).origin);
 		parentInterface.addEventListener("connect", this.onConnect.bind(this));
 	}
 
-	closeWindow() {
-		globalThis.close();	
-	}
 	async onConnect(event: EndpointConnectEvent) {
-		console.log(event)
-		this.otherEndpoint.val = event.endpoint.toString();
+		const endpoint = event.endpoint as Datex.Endpoint;
+		this.otherEndpoint.val = endpoint.toString();
+		const other: typeof OtherInterface = await datex`${endpoint}.AppInterface`;
+		console.log(other.helloFromWindow())
+	}
+	pong() {
+
 	}
 }
