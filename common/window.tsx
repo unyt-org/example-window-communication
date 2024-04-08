@@ -3,6 +3,8 @@ import { WindowInterface } from "unyt_core/network/communication-interfaces/wind
 import { WindowInterface as MyInterface } from './interfaces/WindowInterface.tsx';
 import { type AppInterface as OtherInterface } from './interfaces/AppInterface.tsx';
 import { Datex } from "unyt_core/datex.ts";
+
+// Exposing the interface "WindowInterface" via DATEX
 MyInterface;
 
 @template(function() {
@@ -27,8 +29,10 @@ export class Window extends Component {
 	private appInterface?: typeof OtherInterface;
 
 	protected onDisplay(): void | Promise<void> {
-		console.log(globalThis.opener, new URL(document.referrer).origin)
-		const parentInterface = WindowInterface.createParentInterface(globalThis.opener, new URL(document.referrer).origin);
+		const parentInterface = WindowInterface.createParentInterface(
+			globalThis.opener,
+			new URL(document.referrer).origin
+		);
 		parentInterface.addEventListener("connect", this.onConnect.bind(this));
 	}
 
