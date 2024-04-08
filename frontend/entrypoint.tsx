@@ -4,7 +4,6 @@
  * when a page is visited
  */
 
-export default {
-	// show frontend-rendered page on /frontend
-	'/': import("./page.tsx") 
-}
+import { Page } from "frontend/page.tsx";
+
+export default <Page/>;
