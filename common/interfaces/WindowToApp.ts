@@ -1,4 +1,8 @@
+// deno-lint-ignore-file require-await
 @endpoint
 export class WindowToApp {
-	@property static async helloFromWindow() {};
+	static async helloFromWindow() {};
+	@property static async helloFromApp() {
+		console.log("Hello from app")
+	};
 }
