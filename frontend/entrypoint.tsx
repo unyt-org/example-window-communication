@@ -4,8 +4,8 @@
  * when a page is visited
  */
 
-import { Page } from "./app.tsx";
-import { Window } from "./window.tsx";
+import { Page } from "common/app.tsx";
+import { Window } from "common/window.tsx";
 
 export default {
 	'/': <Page/>,

@@ -1,7 +1,7 @@
 import { Component } from "uix/components/Component.ts";
 import { WindowInterface } from "unyt_core/network/communication-interfaces/window-interface.ts";
-import { WindowInterface as MyInterface } from '../common/interfaces/WindowInterface.tsx';
-import { type AppInterface as OtherInterface } from '../common/interfaces/AppInterface.tsx';
+import { WindowInterface as MyInterface } from './interfaces/WindowInterface.tsx';
+import { type AppInterface as OtherInterface } from './interfaces/AppInterface.tsx';
 import { Datex } from "unyt_core/datex.ts";
 MyInterface;
 
