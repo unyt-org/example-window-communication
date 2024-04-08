@@ -4,6 +4,10 @@
  * when a page is visited
  */
 
-import { Page } from "frontend/page.tsx";
+import { Page } from "./app.tsx";
+import { Window } from "./window.tsx";
 
-export default <Page/>;
+export default {
+	'/': <Page/>,
+	'/window': <Window/>
+};

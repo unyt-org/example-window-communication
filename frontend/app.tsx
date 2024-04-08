@@ -1,13 +1,18 @@
 import { Component } from "uix/components/Component.ts";
 import { WindowInterface } from "unyt_core/network/communication-interfaces/window-interface.ts";
-import { AppToIframe } from 'common/interfaces/AppToIframe.ts';
+import { AppToWindow } from '../common/interfaces/AppToWindow.ts';
+import { Datex } from "unyt_core/mod.ts";
 
 @template(function() {
 	return <>
+		{this.otherEndpoint}
+		<br/>
 		<button onclick:frontend={() => this.openWindow()}>Open window</button>
 	</>
 })
 export class Page extends Component {
+	otherEndpoint = $$("");
+	
 	async openWindow() {
 		const width = 500;
 		const height = 750;
@@ -16,6 +21,7 @@ export class Page extends Component {
 
 		const domain = new URL("/window", globalThis.location.origin);
 		const { window, endpoint } = await WindowInterface.createWindow(domain, "Window", `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=${width},height=${height},left=${left},top=${top}`);
-		console.log(window, endpoint, AppToIframe)
+		console.log(window, endpoint, AppToWindow)
+		this.otherEndpoint.val = endpoint!.toString();
 	}
 }

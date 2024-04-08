@@ -4,8 +4,8 @@
  * when a page is visited
  */
 export default {
-	'/': null,
-	'/window': <p>
-		Hello world from backend-1
-	</p>
+	'*': null,
+	// '/window': <p>
+	// 	Hello world from backend-1
+	// </p>
 }
