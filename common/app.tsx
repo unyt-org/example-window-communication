@@ -1,8 +1,8 @@
 import { Component } from "uix/components/Component.ts";
-import { WindowInterface } from "unyt_core/network/communication-interfaces/window-interface.ts";
+import { WindowInterface } from "datex-core-legacy/network/communication-interfaces/window-interface.ts";
 import { type WindowInterface as OtherInterface } from './interfaces/WindowInterface.tsx';
 import { AppInterface as MyInterface} from './interfaces/AppInterface.tsx';
-import { Datex } from "unyt_core/datex.ts";
+import { Datex } from "datex-core-legacy/datex.ts";
 
 // Exposing the interface "AppInterface" via DATEX
 MyInterface;

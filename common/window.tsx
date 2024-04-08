@@ -1,8 +1,8 @@
 import { Component } from "uix/components/Component.ts";
-import { WindowInterface } from "unyt_core/network/communication-interfaces/window-interface.ts";
+import { WindowInterface } from "datex-core-legacy/network/communication-interfaces/window-interface.ts";
 import { WindowInterface as MyInterface } from './interfaces/WindowInterface.tsx';
 import { type AppInterface as OtherInterface } from './interfaces/AppInterface.tsx';
-import { Datex } from "unyt_core/datex.ts";
+import { Datex } from "datex-core-legacy/datex.ts";
 
 // Exposing the interface "WindowInterface" via DATEX
 MyInterface;
@@ -37,11 +37,12 @@ export class Window extends Component {
 			globalThis.opener,
 			new URL(document.referrer).origin
 		);
+
+		// The connection event is fired if we got a DATEX response from the app
 		parentInterface.addEventListener("connect", this.onConnect.bind(this));
 	}
 
-	async onConnect(event: EndpointConnectEvent) {
-		const endpoint = event.endpoint as Datex.Endpoint;
+	async onConnect({endpoint}: { endpoint: Datex.Endpoint} /* EndpointConnectEvent */) {
 		this.otherEndpoint.val = endpoint.toString();
 
 		// Requesting interface from app endpoint
