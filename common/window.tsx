@@ -25,10 +25,10 @@ MyInterface;
 	</main>
 })
 export class Window extends Component {
-	otherEndpoint = $$("Loading...");
+	otherEndpoint = $("Loading...");
 	private appInterface?: typeof OtherInterface;
 
-	protected onDisplay(): void | Promise<void> {
+	protected override onDisplay() {
 		// Creating a parent inteface to communicate with the parent (our app)
 		// by passing the opener window (app window) and opener url.
 		// We should not use document.referrer in production but rather use
